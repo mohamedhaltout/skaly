@@ -40,6 +40,11 @@ if (isset($_GET['action']) && isset($_GET['id_reservation'])) {
     } elseif ($_GET['action'] === 'accept_meeting') {
         $stmt = $pdo->prepare("UPDATE Reservation SET artisan_accepted_meeting = TRUE WHERE id_reservation = ? AND id_prestataire = ?");
         $stmt->execute([$id_reservation, $id_prestataire]);
+        $stmt_check = $pdo->prepare("SELECT client_accepted_meeting FROM Reservation WHERE id_reservation = ?");
+        $stmt_check->execute([$id_reservation]);
+        if ($stmt_check->fetchColumn()) {
+            $pdo->prepare("UPDATE Reservation SET statut = 'en_cours' WHERE id_reservation = ?")->execute([$id_reservation]);
+        }
         header("Location: artisan_dashboard.php?status=meeting_accepted");
         exit();
     } elseif ($_GET['action'] === 'mark_project_ended') {
@@ -56,7 +61,7 @@ $stmt->execute([$id_prestataire]);
 $pending_demands = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch accepted demands (reservations where artisan has accepted the meeting)
-$stmt = $pdo->prepare("SELECT r.*, u.nom AS client_nom, u.prenom AS client_prenom, d.id_devis, d.statut_devis FROM Reservation r JOIN Utilisateur u ON r.id_client = u.id_utilisateur LEFT JOIN Devis d ON r.id_reservation = d.id_reservation WHERE r.id_prestataire = ? AND r.statut = 'acceptée' AND r.artisan_accepted_meeting = TRUE ORDER BY r.date_debut DESC");
+$stmt = $pdo->prepare("SELECT r.*, u.nom AS client_nom, u.prenom AS client_prenom, d.id_devis, d.statut_devis FROM Reservation r JOIN Utilisateur u ON r.id_client = u.id_utilisateur LEFT JOIN Devis d ON r.id_reservation = d.id_reservation WHERE r.id_prestataire = ? AND r.statut IN ('acceptée','en_cours') ORDER BY r.date_debut DESC");
 $stmt->execute([$id_prestataire]);
 $accepted_demands = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -194,6 +199,12 @@ $average_rating = 0.0;
                                     <a href="Create_quote.php?id_reservation=<?= $demand['id_reservation'] ?>" class="button create-devis-button">Create Quote</a>
                                 <?php else: ?>
                                     <a href="Create_quote.php?id_devis=<?= $demand['id_devis'] ?>" class="button view-request-button">See Quote</a>
+                                <?php endif; ?>
+                                <?php if (!$demand['artisan_accepted_meeting']): ?>
+                                    <a href="artisan_dashboard.php?action=accept_meeting&id_reservation=<?= $demand['id_reservation'] ?>" class="button accept-button">Confirmer la rencontre</a>
+                                <?php endif; ?>
+                                <?php if ($demand['artisan_accepted_meeting'] && !$demand['project_ended_artisan']): ?>
+                                    <a href="artisan_dashboard.php?action=mark_project_ended&id_reservation=<?= $demand['id_reservation'] ?>" class="button refuse-button" onclick="return confirm('Mark this project as completed?');">Mark Completed</a>
                                 <?php endif; ?>
                             </div>
                         </div>

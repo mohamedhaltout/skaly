@@ -2,7 +2,7 @@
 session_start();
 require 'config.php';
 
-if (!isset($_SESSION['id_utilisateur']) || $_SESSION['role'] !== 'client') {
+if (!isset($_SESSION['id_utilisateur']) || !in_array($_SESSION['role'], ['client','prestataire'])) {
     header("Location: login.php");
     exit();
 }
@@ -47,8 +47,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'accept_quote' && isset($_GET[
         $stmt_res->execute([$id_devis_to_accept]);
         $id_reservation_from_devis = $stmt_res->fetchColumn();
 
-        // Update Reservation status and client_accepted_meeting
-        $stmt_update_res = $pdo->prepare("UPDATE Reservation SET statut = 'acceptée', client_accepted_meeting = TRUE WHERE id_reservation = ? AND id_client = ?");
+        // Update Reservation status; meeting will be confirmed separately
+        $stmt_update_res = $pdo->prepare("UPDATE Reservation SET statut = 'acceptée' WHERE id_reservation = ? AND id_client = ?");
         $stmt_update_res->execute([$id_reservation_from_devis, $id_client]);
 
         $pdo->commit();
@@ -73,6 +73,31 @@ if (isset($_GET['action']) && $_GET['action'] === 'refuse_quote' && isset($_GET[
     }
 }
 
+// Handle project completion confirmation by client
+if (isset($_GET['action']) && $_GET['action'] === 'mark_project_ended' && isset($_GET['id_reservation'])) {
+    $id_res_end = (int)$_GET['id_reservation'];
+    $stmt = $pdo->prepare("UPDATE Reservation SET project_ended_client = TRUE WHERE id_reservation = ? AND id_client = ?");
+    $stmt->execute([$id_res_end, $id_client]);
+    // If artisan also ended, status will update via cron in config.php
+    header("Location: client_Dashboard.php?status=project_marked_done");
+    exit();
+}
+
+// Handle meeting confirmation by client
+if (isset($_GET['action']) && $_GET['action'] === 'confirm_meeting' && isset($_GET['id_reservation'])) {
+    $id_res_to_confirm = (int)$_GET['id_reservation'];
+    $stmt = $pdo->prepare("UPDATE Reservation SET client_accepted_meeting = TRUE WHERE id_reservation = ? AND id_client = ?");
+    $stmt->execute([$id_res_to_confirm, $id_client]);
+    // If artisan already confirmed, set project status to 'en_cours'
+    $stmt_check = $pdo->prepare("SELECT artisan_accepted_meeting FROM Reservation WHERE id_reservation = ?");
+    $stmt_check->execute([$id_res_to_confirm]);
+    if ($stmt_check->fetchColumn()) {
+        $pdo->prepare("UPDATE Reservation SET statut = 'en_cours' WHERE id_reservation = ?")->execute([$id_res_to_confirm]);
+    }
+    header("Location: client_Dashboard.php?status=meeting_confirmed");
+    exit();
+}
+
 // Fetch pending demands (reservations)
 $stmt = $pdo->prepare("SELECT r.*, u.nom AS artisan_nom, u.prenom AS artisan_prenom FROM Reservation r JOIN Prestataire p ON r.id_prestataire = p.id_prestataire JOIN Utilisateur u ON p.id_utilisateur = u.id_utilisateur WHERE r.id_client = ? AND r.statut = 'en_attente' ORDER BY r.date_debut DESC");
 $stmt->execute([$id_client]);
@@ -83,8 +108,13 @@ $stmt = $pdo->prepare("SELECT r.*, u.nom AS artisan_nom, u.prenom AS artisan_pre
 $stmt->execute([$id_client]);
 $quotes_awaiting_review = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// Fetch demands accepted by artisan but meeting not yet confirmed by client
+$stmt = $pdo->prepare("SELECT r.*, u.nom AS artisan_nom, u.prenom AS artisan_prenom FROM Reservation r JOIN Prestataire p ON r.id_prestataire = p.id_prestataire JOIN Utilisateur u ON p.id_utilisateur = u.id_utilisateur WHERE r.id_client = ? AND r.statut = 'acceptée' AND r.client_accepted_meeting = FALSE ORDER BY r.date_debut DESC");
+$stmt->execute([$id_client]);
+$accepted_demands = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 // Fetch accepted projects (reservations where client_accepted_meeting is TRUE)
-$stmt = $pdo->prepare("SELECT r.*, u.nom AS artisan_nom, u.prenom AS artisan_prenom, d.id_devis, d.cout_total, d.acompte, d.statut_devis FROM Reservation r JOIN Prestataire p ON r.id_prestataire = p.id_prestataire JOIN Utilisateur u ON p.id_utilisateur = u.id_utilisateur JOIN Devis d ON r.id_reservation = d.id_reservation WHERE r.id_client = ? AND r.statut = 'acceptée' AND r.client_accepted_meeting = TRUE ORDER BY r.date_debut DESC");
+$stmt = $pdo->prepare("SELECT r.*, u.nom AS artisan_nom, u.prenom AS artisan_prenom, d.id_devis, d.cout_total, d.acompte, d.statut_devis FROM Reservation r JOIN Prestataire p ON r.id_prestataire = p.id_prestataire JOIN Utilisateur u ON p.id_utilisateur = u.id_utilisateur JOIN Devis d ON r.id_reservation = d.id_reservation WHERE r.id_client = ? AND r.client_accepted_meeting = TRUE ORDER BY r.date_debut DESC");
 $stmt->execute([$id_client]);
 $accepted_projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -94,7 +124,7 @@ $stmt->execute([$id_client]);
 $payments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Calculate summary card data
-$tasks_in_progress = count($accepted_demands); // Assuming accepted demands are tasks in progress
+$tasks_in_progress = count($accepted_projects); // Projects where meeting confirmed
 $total_paid_stmt = $pdo->prepare("SELECT SUM(montant) AS total_paid FROM Paiement WHERE id_client = ? AND statut_paiement = 'effectué'");
 $total_paid_stmt->execute([$id_client]);
 $total_paid = $total_paid_stmt->fetch(PDO::FETCH_ASSOC)['total_paid'] ?? 0;
@@ -143,6 +173,37 @@ $evaluations_count = 0; // You'll need to implement logic to count pending evalu
             <div class="card total-paid">
                 <div class="card-number"><?= number_format($total_paid, 2) ?><span class="currency"> DH</span></div>
                 <div class="card-text">Total Amount Paid</div>
+            </div>
+        </section>
+
+        <section class="accepted-demands-section">
+            <h2 class="section-title">Demandes acceptées</h2>
+            <div class="reservation-list">
+                <?php if (count($accepted_demands) > 0): ?>
+                    <?php foreach ($accepted_demands as $demand): ?>
+                        <div class="reservation-item">
+                            <div class="reservation-details">
+                                <div class="detail-group">
+                                    <span class="detail-label">Artisan:</span>
+                                    <span class="detail-value"><?= htmlspecialchars($demand['artisan_prenom'] . ' ' . $demand['artisan_nom']) ?></span>
+                                </div>
+                                <div class="detail-group">
+                                    <span class="detail-label">Service:</span>
+                                    <span class="detail-value"><?= htmlspecialchars($demand['description_service']) ?></span>
+                                </div>
+                                <div class="detail-group">
+                                    <span class="detail-label">Start date:</span>
+                                    <span class="detail-value"><?= htmlspecialchars($demand['date_debut']) ?></span>
+                                </div>
+                            </div>
+                            <div class="reservation-actions">
+                                <a href="client_Dashboard.php?action=confirm_meeting&id_reservation=<?= $demand['id_reservation'] ?>" class="button accept-button">Confirmer la rencontre</a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No accepted demands.</p>
+                <?php endif; ?>
             </div>
         </section>
 
@@ -267,6 +328,9 @@ $evaluations_count = 0; // You'll need to implement logic to count pending evalu
                             <div class="reservation-actions">
                                 <!-- Actions for accepted projects, e.g., view project details, mark as complete -->
                                 <a href="view_project.php?id_reservation=<?= $project['id_reservation'] ?>" class="button see-quote-button">View Project</a>
+                                <?php if (!$project['project_ended_client']): ?>
+                                <a href="client_Dashboard.php?action=mark_project_ended&id_reservation=<?= $project['id_reservation'] ?>" class="button cancel-button" onclick="return confirm('Mark this project as completed?');">Mark as Completed</a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     <?php endforeach; ?>

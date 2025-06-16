@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'config.php';
 
 if (!isset($_GET['id'])) {
@@ -171,8 +172,18 @@ if ($is_available && in_array(date('Y-m-d'), $unavailableDates)) {
             if ($stmt_global_check->fetchColumn() > 0) {
                 $is_globally_unavailable = true;
             }
+
+            // Determine if the viewer can request a service (client or artisan not viewing own profile)
+            $can_request = false;
+            if (isset($_SESSION['id_utilisateur'])) {
+                $viewer_id = $_SESSION['id_utilisateur'];
+                $viewer_role = $_SESSION['role'];
+                if (($viewer_role === 'client' || $viewer_role === 'prestataire') && $viewer_id != $prestataire['id_utilisateur']) {
+                    $can_request = true;
+                }
+            }
             ?>
-            <?php if (!$is_available): ?>
+            <?php if (!$is_available || !$can_request): ?>
                 <button class="request-service-action-btn unavailable-btn" disabled>Indisponible</button>
             <?php else: ?>
                 <button class="request-service-action-btn" id="requestServiceBtn" data-prestataire-id="<?= $id_prestataire ?>" disabled>Demande De Service</button>

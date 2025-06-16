@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
         requestServiceBtn.addEventListener('click', (event) => {
             event.preventDefault(); // Prevent default form submission
             if (selectedDate && typeof artisanId !== 'undefined') { // Check if artisanId is defined globally
-                window.location.href = `demande_service.php?id_prestataire=${artisanId}&date_debut=${selectedDate}`;
+                window.location.href = `demande_service.php?id_prestataire=${artisanId}&date_dispo=${selectedDate}`;
             } else {
                 alert('Please select an available date first.');
             }
