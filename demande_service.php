@@ -17,16 +17,23 @@ $reservation_details = null;
 $artisan = null;
 $client_info = null;
 
-if ($user_role === 'client' && !$view_only) {
+if (($user_role === 'client' || $user_role === 'prestataire') && !$view_only) {
     // Fetch the actual id_client from the Client table using id_utilisateur
     $stmt_client = $pdo->prepare("SELECT id_client FROM Client WHERE id_utilisateur = ?");
     $stmt_client->execute([$id_utilisateur_session]);
     $client_data = $stmt_client->fetch(PDO::FETCH_ASSOC);
 
     if (!$client_data) {
-        die("Client not found for the current user.");
+        // If the user is an artisan acting as a client, create a client record on the fly
+        $stmt_tel = $pdo->prepare("SELECT telephone FROM Prestataire WHERE id_utilisateur = ?");
+        $stmt_tel->execute([$id_utilisateur_session]);
+        $tel = $stmt_tel->fetchColumn() ?: '0000000000';
+        $stmt_ins = $pdo->prepare("INSERT INTO Client (id_utilisateur, telephone) VALUES (?, ?)");
+        $stmt_ins->execute([$id_utilisateur_session, $tel]);
+        $id_client = $pdo->lastInsertId();
+    } else {
+        $id_client = $client_data['id_client'];
     }
-    $id_client = $client_data['id_client'];
     $id_prestataire = isset($_GET['id_prestataire']) ? (int)$_GET['id_prestataire'] : 0;
 
     if ($id_prestataire === 0) {
@@ -171,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$view_only) { // Only process POST
                         <div class="description">(When do you want the service to start?)</div>
                     </div>
                     <div class="form-input">
-                        <input type="date" id="date_debut" name="date_debut" value="<?= htmlspecialchars($reservation_details['date_debut'] ?? $_GET['date_debut'] ?? '') ?>" <?= $view_only ? 'disabled' : 'required' ?> />
+                        <input type="date" id="date_debut" name="date_debut" value="<?= htmlspecialchars($reservation_details['date_debut'] ?? $_GET['date_dispo'] ?? '') ?>" <?= $view_only ? 'disabled' : 'required' ?> />
                     </div>
                 </div>
 
