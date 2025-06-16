@@ -1,0 +1,545 @@
+body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f8f8f8;
+    font-size: 14px;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 56px;
+    background-color: #fff;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.logo-image {
+    width: 42px;
+    height: 42px;
+}
+
+.logo-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 26.6px;
+    color: #3E185B;
+}
+
+.logo-dot {
+    color: #8E7B9C;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    order: 1;
+}
+
+.logout-button {
+    width: 83px;
+    height: 31.5px;
+    border: 1px solid #6D6D6D;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #62646A;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 11.9px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    order: 3;
+}
+
+.logout-button:hover {
+    background-color: #f0f0f0;
+}
+
+.client-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14.7px;
+    color: #8E7B9C;
+    order: 1;
+}
+
+.profile-image {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #E3E3E3;
+    order: 2;
+}
+
+.header-divider {
+    border-bottom: 1px solid #E3E3E3;
+    margin-bottom: 21px;
+}
+
+.dashboard-content {
+    padding: 0 56px 35px 56px;
+}
+
+.welcome-message {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 26.6px;
+    color: #3E185B;
+    margin-bottom: 28px;
+}
+
+.summary-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 21px;
+    margin-bottom: 35px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 7px;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.05);
+    padding: 21px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-grow: 1;
+    width: 323.4px;
+    height: 119px;
+    box-sizing: border-box;
+    border: 1px solid #B4B4B4;
+}
+
+.card-number {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 40.6px;
+    color: #3E185B;
+    line-height: 1;
+    margin-bottom: 7px;
+}
+
+.card-number .currency {
+    font-size: 0.7em;
+    margin-left: 3.5px;
+}
+
+.card-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 19.6px;
+    color: #3E185B;
+    line-height: 1;
+}
+
+.section-title {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 24.5px;
+    color: #3E185B;
+    margin-bottom: 21px;
+}
+
+.demands-section,
+.reservations-section,
+.history-section,
+.payments-section {
+    margin-bottom: 35px;
+}
+
+.reservation-list,
+.history-list,
+.payment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.reservation-item,
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #B4B4B4;
+    border-radius: 5.6px;
+    padding: 14px 21px;
+    box-shadow: 0 1.4px 3.5px rgba(0, 0, 0, 0.03);
+}
+
+.reservation-details,
+.history-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px 140px; 
+    flex-grow: 1;
+}
+
+.detail-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-label {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 17.5px;
+    color: #3E185B;
+    margin-bottom: 3.5px;
+}
+
+.detail-value {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #62646A;
+}
+
+.status-pending {
+    color: #E8CD14;
+}
+
+.status-refused {
+    color: #FF0000; /* Red for refused */
+}
+
+.status-completed {
+    color: #02AA1B;
+}
+
+.reservation-actions,
+.history-actions {
+    display: flex;
+    gap: 10.5px;
+    flex-shrink: 0;
+}
+
+.button {
+    width: 107.8px;
+    height: 29.4px;
+    border-radius: 4.2px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 11.9px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.see-quote-button {
+    background-color: #fff;
+    border: 1px solid #3E185B;
+    color: #3E185B;
+}
+
+.see-quote-button:hover {
+    background-color: #3E185B;
+    color: #fff;
+}
+
+.accept-meeting-button {
+    background-color: #02AA1B;
+    border: 1px solid #02AA1B;
+    color: white;
+}
+
+.accept-meeting-button:hover {
+    background-color: #02CC1B;
+    border-color: #02CC1B;
+}
+
+.cancel-button,
+.evaluate-button {
+    background-color: #3E185B;
+    border: 1px solid #3E185B;
+    color: white;
+}
+
+.cancel-button:hover,
+.evaluate-button:hover {
+    background-color: #5A3378;
+    border-color: #5A3378;
+}
+
+
+
+.payment-item {
+    background-color: #fff;
+    border: 1px solid #B4B4B4;
+    border-radius: 5.6px;
+    padding: 17.5px 21px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #62646A;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 1200px) {
+    .main-header,
+    .dashboard-content {
+        padding-left: 28px;
+        padding-right: 28px;
+    }
+
+    .summary-cards {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .card {
+        width: calc(50% - 14px);
+        max-width: 280px;
+        padding: 17.5px 21px;
+    }
+
+    .card-number {
+        font-size: 33.6px;
+    }
+
+    .card-text {
+        font-size: 16.8px;
+    }
+
+    .demands-section .reservation-list,
+    .reservations-section .reservation-list,
+    .history-section .history-list,
+    .payments-section .payment-list {
+        gap: 10.5px;
+        margin-bottom: 28px;
+    }
+
+    .reservation-item,
+    .history-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 14px;
+    }
+
+    .reservation-details,
+    .history-details {
+        gap: 20px 30px; 
+        width: 100%;
+    }
+
+    .detail-label {
+        font-size: 15.4px;
+    }
+
+    .detail-value {
+        font-size: 12.6px;
+    }
+
+    .reservation-actions,
+    .history-actions {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .button {
+        width: 98px;
+        font-size: 11.2px;
+    }
+
+    .payment-item {
+        font-size: 12.6px;
+        padding: 14px 17.5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-header {
+        padding: 10.5px 14px;
+        gap: 10.5px;
+    }
+
+    .logout-button {
+        max-width: 140px;
+        height: 28px;
+        font-size: 11.2px;
+    }
+
+    .client-name {
+        font-size: 12.6px;
+    }
+
+    .profile-image {
+        width: 31.5px;
+        height: 31.5px;
+    }
+
+    .header-divider {
+        margin-bottom: 14px;
+    }
+
+    .dashboard-content {
+        padding: 0 14px 28px 14px;
+    }
+
+    .welcome-message {
+        font-size: 21px;
+        margin-bottom: 21px;
+    }
+
+    .summary-cards {
+        gap: 14px;
+    }
+
+    .card {
+        max-width: 245px;
+        padding: 14px;
+    }
+
+    .card-number {
+        font-size: 29.4px;
+    }
+
+    .card-text {
+        font-size: 14px;
+    }
+
+    .section-title {
+        font-size: 19.6px;
+        margin-bottom: 17.5px;
+    }
+
+
+    .reservation-item,
+    .history-item {
+        padding: 10.5px;
+    }
+
+    .detail-label {
+        font-size: 12.6px;
+    }
+
+    .detail-value {
+        font-size: 11.2px;
+    }
+
+    .button {
+        width: 84px;
+        height: 26.6px;
+        font-size: 10.5px;
+    }
+
+    .payment-item {
+        font-size: 11.2px;
+        padding: 12.6px 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-header {
+        padding: 7px;
+    }
+
+    .logo-image {
+        width: 35px;
+        height: 35px;
+    }
+
+    .logo-text {
+        font-size: 21px;
+    }
+
+    .logout-button {
+        height: 24.5px;
+        font-size: 9.8px;
+    }
+
+    .client-name {
+        font-size: 11.2px;
+    }
+
+    .profile-image {
+        width: 28px;
+        height: 28px;
+    }
+
+    .header-divider {
+        margin-bottom: 10.5px;
+    }
+
+    .dashboard-content {
+        padding: 0 10.5px 21px 10.5px;
+    }
+
+    .welcome-message {
+        font-size: 16.8px;
+        margin-bottom: 17.5px;
+    }
+
+    .summary-cards {
+        gap: 10.5px;
+    }
+
+    .card {
+        padding: 10.5px;
+    }
+
+    .card-number {
+        font-size: 25.2px;
+    }
+
+    .card-text {
+        font-size: 12.6px;
+    }
+
+    .section-title {
+        font-size: 16.8px;
+        margin-bottom: 14px;
+    }
+
+    .demands-section .reservation-list,
+    .reservations-section .reservation-list,
+    .history-section .history-list,
+    .payments-section .payment-list {
+        gap: 7px;
+        margin-bottom: 21px;
+    }
+
+    .reservation-item,
+    .history-item {
+        padding: 7px;
+    }
+
+    .detail-label {
+        font-size: 11.2px;
+    }
+
+    .detail-value {
+        font-size: 9.8px;
+    }
+
+    .reservation-actions,
+    .history-actions {
+        gap: 7px;
+    }
+
+    .button {
+        width: 63px;
+        max-width: 140px;
+        height: 24.5px;
+        font-size: 9.8px;
+    }
+
+    .payment-item {
+        font-size: 9.8px;
+        padding: 10.5px;
+    }
+}

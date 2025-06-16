@@ -1,0 +1,1169 @@
+body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    zoom: 0.9;
+}
+
+.main-header {
+    background-color: #fff;
+    padding: 15px 25px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.header-search-container {
+    position: relative;
+    margin-left: 0; /* Centering the search bar */
+    width: 620px;
+    height: 50px; /* Increased height */
+    display: flex;
+    align-items: center;
+    border: 1px solid #CECECE; /* Adjusted border thickness */
+    border-radius: 25px; /* More rounded corners */
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Added subtle shadow */
+}
+
+.header-search-input {
+    flex: 1;
+    height: 100%;
+    border: none;
+    padding: 0 20px; /* Increased padding */
+    font-size: 16px; /* Increased font size */
+    font-family: 'Open Sans', sans-serif;
+    color: #62646A; /* Adjusted placeholder color */
+    letter-spacing: -0.01em;
+    outline: none;
+}
+
+.header-search-icon-wrapper {
+    width: 70px; /* Increased width */
+    height: 100%;
+    background-color: #3E185B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 25px 25px 0; /* Rounded right corners */
+}
+
+.header-search-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.header-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo-img {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+}
+
+.header-logo-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #3E185B;
+}
+
+.header-logo-dot {
+    color: #8E7B9C;
+}
+
+.header-right-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.header-orders,
+.header-switch {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.header-orders {
+    color: #62646A;
+}
+
+.header-switch {
+    color: #8E7B9C;
+}
+
+.header-profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.header-line {
+    border-top: 1px solid #E3E3E3;
+    margin: 15px 0;
+}
+
+.categories-nav-bar {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.categories-scroll-slider {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.categories-scroll-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.category-item {
+    flex: 0 0 auto;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: #725489;
+    white-space: nowrap;
+}
+
+.category-arrow-icon {
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.artisan-profile-layout {
+    display: flex;
+    padding: 60px 90px;
+    gap: 30px;
+    transform: scale(0.85);
+    transform-origin: top left;
+    width: calc(100% / 0.85);
+    box-sizing: border-box;
+}
+
+.profile-info-section {
+    flex: 0 0 65%;
+    padding-right: 15px;
+}
+
+.availability-sidebar {
+    flex: 0 0 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding-left: 15px;
+}
+
+.request-service-action-btn {
+    background-color: #3E185B; /* Purple background */
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    padding: 20px 60px;
+    border: none;
+    border-radius: 15px; /* More rounded corners */
+    cursor: pointer;
+    width: 100%;
+    max-width: 500px; /* Increased width */
+    box-sizing: border-box;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.request-service-action-btn:hover {
+    background-color: #5A3378; /* Darker purple on hover */
+}
+
+.request-service-action-btn:disabled {
+    background-color: #cccccc; /* Grey out when disabled */
+    cursor: not-allowed;
+}
+
+.request-service-action-btn.unavailable-btn {
+    background-color: #FF6347; /* Tomato red for unavailable */
+}
+
+.request-service-action-btn.unavailable-btn:hover {
+    background-color: #E55337; /* Darker red on hover for unavailable */
+}
+
+.artisan-bio-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.artisan-profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.artisan-main-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-grow: 1;
+}
+
+.name-and-price-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.artisan-full-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    color: #3E185B;
+    margin: 0;
+    letter-spacing: normal;
+}
+
+.artisan-service-price {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 26px;
+    letter-spacing: -1%;
+    color: #3E185B;
+    white-space: nowrap;
+}
+
+.artisan-reviews-summary {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.star-rating-display {
+    display: flex;
+    gap: 1px;
+}
+
+.review-star-icon {
+    width: 18px;
+    height: 16px;
+    color: #3E185B;
+}
+
+.artisan-rating-score {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: -1%;
+    color: #3E185B;
+}
+
+.artisan-total-reviews {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -1%;
+    color: #84659C;
+}
+
+.artisan-location-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 15px;
+}
+
+.location-marker-icon {
+    width: 20px;
+    height: 19px;
+    color: #3E185B;
+}
+
+.artisan-location-text {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 17px;
+    color: #623882;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 130px;
+}
+
+.artisan-service-category {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 28px;
+    letter-spacing: -1%;
+    color: #3E185B;
+    margin-top: 30px;
+    margin-bottom: 12px;
+}
+
+.artisan-short-description {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #623882;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.artisan-long-description {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 21px;
+    color: #623882;
+    margin-bottom: 70px;
+    line-height: 1.6;
+}
+
+.artisan-media-gallery {
+    margin-bottom: 30px;
+}
+
+.main-media-viewer {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 420px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.main-gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    padding: 6px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.gallery-arrow:hover {
+    opacity: 1;
+}
+
+.arrow-left {
+    left: 10px;
+}
+
+.arrow-right {
+    right: 10px;
+}
+
+.thumbnail-media-carousel {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+    width: calc((180px * 5) + (10px * 4));
+    max-width: 100%;
+}
+
+.thumbnail-media-carousel::-webkit-scrollbar {
+    height: 6px;
+}
+
+.thumbnail-media-carousel::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.thumbnail-media-carousel::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.gallery-thumbnail {
+    flex-shrink: 0;
+    width: 180px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.gallery-thumbnail.active {
+    border-color: #3E185B;
+}
+
+.customer-reviews-section {
+    margin-top: 30px;
+}
+
+.reviews-section-title {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 28px;
+    letter-spacing: -1%;
+    color: #3E185B;
+    margin-top: 90px;
+    margin-bottom: 25px;
+}
+
+.customer-review-card {
+    border: 1px solid #B8B8B8;
+    border-radius: 10px;
+    padding: 15px 25px;
+    margin-bottom: 20px;
+    width: calc(100% - 2px);
+    max-width: 900px;
+    height: auto;
+    box-sizing: border-box;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.reviewer-header-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.reviewer-profile-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.reviewer-full-name {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: -1%;
+    color: #3E185B;
+}
+
+.reviewer-line-separator {
+    border-top: 0.7px solid #B8B8B8;
+    width: calc(100% - 15px);
+    margin: 8px auto;
+}
+
+.review-rating-details {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.reviewer-rating-score {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: -1%;
+    color: #3E185B;
+}
+
+.customer-review-text {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #623882;
+    line-height: 1.5;
+    margin-top: 8px;
+}
+
+.calendar-section-title {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 28px;
+    letter-spacing: -1%;
+    color: #3E185B;
+    margin-bottom: 20px;
+}
+
+.service-calendar-widget {
+    width: 100%;
+    max-width: 450px;
+    height: 600px;
+    border: 1px solid #BEBEBE;
+    border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #3E185B;
+}
+
+.calendar-nav-arrow {
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.calendar-month-year {
+    text-align: center;
+}
+
+.calendar-days-of-week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: 600;
+    color: #84659C;
+    margin-bottom: 10px;
+}
+
+.calendar-days-of-week span {
+    padding: 8px 0;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    flex-grow: 1;
+}
+
+.calendar-date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 45px;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #3E185B;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.calendar-date:hover {
+    background-color: #E6E6FA;
+}
+
+.calendar-date.past-date,
+.calendar-date.unavailable {
+    color: #B8B8B8;
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.calendar-date.past-date:hover,
+.calendar-date.unavailable:hover {
+    background-color: #f0f0f0;
+}
+
+.calendar-date.available {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.calendar-date.available:hover {
+    background-color: #E6E6FA;
+}
+
+.footer {
+    zoom: 0.8;
+    padding: 40px 100px;
+    background-color: #fff;
+    margin-top: 60px;
+}
+
+.footer-top-line {
+    border-top: 1px solid #D7D7D7;
+    margin-bottom: 40px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-title {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 23px;
+    color: #3E185B;
+    margin-bottom: 20px;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #532f6f;
+    margin-bottom: 10px;
+}
+
+.footer-bottom {
+    border-top: 1px solid #D7D7D7;
+    margin-top: 60px;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-logo {
+    height: 30px;
+}
+
+.footer-copy {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #4E286B;
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.language-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lang-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.language-selector span {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #4E286B;
+}
+
+.social-icons img {
+    width: 25px;
+    height: 25px;
+    color: #4E286B;
+    margin-left: 10px;
+}
+
+
+@media (max-width: 1200px) {
+    .main-header {
+        padding: 10px 20px;
+    }
+
+    .header-search-container {
+        width: 500px;
+        margin-left: -80px;
+    }
+
+    .header-logo-text {
+        font-size: 20px;
+    }
+
+    .header-orders,
+    .header-switch {
+        font-size: 14px;
+    }
+
+    .header-profile-pic {
+        width: 35px;
+        height: 35px;
+    }
+
+    .artisan-profile-layout {
+        padding: 20px 30px;
+        gap: 20px;
+        transform: scale(1);
+        width: 100%;
+    }
+
+    .profile-info-section {
+        flex: 0 0 60%;
+        padding-right: 10px;
+    }
+
+    .availability-sidebar {
+        flex: 0 0 40%;
+        padding-left: 10px;
+    }
+
+    .artisan-profile-avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    .artisan-full-name {
+        font-size: 22px;
+    }
+
+    .artisan-service-price {
+        font-size: 24px;
+    }
+
+    .artisan-rating-score,
+    .artisan-total-reviews {
+        font-size: 16px;
+    }
+
+    .artisan-service-category,
+    .calendar-section-title,
+    .reviews-section-title {
+        font-size: 24px;
+    }
+
+    .artisan-short-description,
+    .artisan-long-description,
+    .customer-review-text {
+        font-size: 16px;
+    }
+
+    .main-media-viewer {
+        height: 350px;
+    }
+
+    .gallery-thumbnail {
+        width: 150px;
+        height: 120px;
+    }
+
+    .thumbnail-media-carousel {
+        width: calc((150px * 5) + (10px * 4));
+    }
+
+    .service-calendar-widget {
+        max-width: 100%;
+        height: 550px;
+        padding: 15px;
+    }
+
+
+    .footer {
+        zoom: 1;
+        padding: 30px 50px;
+    }
+    .footer-title {
+        font-size: 20px;
+    }
+    .footer-column ul li,
+    .footer-copy,
+    .language-selector span {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 992px) {
+    .header-top-bar {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .header-logo {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .header-search-container {
+        width: 80%;
+        margin-left: 0;
+        margin-bottom: 15px;
+    }
+
+    .header-right-nav {
+        width: 100%;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .artisan-profile-layout {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .profile-info-section,
+    .availability-sidebar {
+        flex: none;
+        width: 100%;
+        padding: 0;
+    }
+
+    .artisan-bio-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .name-and-price-line {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .artisan-service-price {
+        margin-top: 10px;
+    }
+
+    .artisan-location-info {
+        justify-content: center;
+        margin-top: 8px;
+    }
+
+    .main-media-viewer {
+        height: 300px;
+    }
+
+    .thumbnail-media-carousel {
+        width: calc((150px * 4) + (10px * 3));
+    }
+
+    .customer-review-card {
+        padding: 10px 15px;
+    }
+
+    .reviewer-header-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .reviewer-profile-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .reviewer-line-separator {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-column {
+        min-width: unset;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .footer-left, .footer-right {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .language-selector {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-header {
+        padding: 10px;
+    }
+
+    .header-search-container {
+        width: 90%;
+        margin-bottom: 10px;
+    }
+
+    .header-right-nav {
+        flex-wrap: wrap;
+        font-size: 12px;
+    }
+
+    .header-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .header-orders,
+    .header-switch {
+        font-size: 12px;
+    }
+
+    .categories-scroll-slider {
+        gap: 10px;
+    }
+
+    .category-item {
+        font-size: 14px;
+    }
+
+    .category-arrow-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .artisan-profile-layout {
+        padding: 15px;
+    }
+
+    .artisan-profile-avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .artisan-full-name {
+        font-size: 20px;
+    }
+
+    .artisan-service-price {
+        font-size: 22px;
+    }
+
+    .artisan-reviews-summary {
+        flex-direction: column;
+        gap: 2px;
+        align-items: center;
+    }
+
+    .artisan-rating-score,
+    .artisan-total-reviews {
+        font-size: 14px;
+    }
+
+    .artisan-service-category,
+    .calendar-section-title,
+    .reviews-section-title {
+        font-size: 22px;
+        margin-top: 20px;
+    }
+
+    .artisan-short-description,
+    .artisan-long-description,
+    .customer-review-text {
+        font-size: 15px;
+    }
+
+    .main-media-viewer {
+        height: 250px;
+    }
+
+    .gallery-arrow {
+        width: 30px;
+        height: 30px;
+        padding: 4px;
+    }
+
+    .gallery-thumbnail {
+        width: 120px;
+        height: 100px;
+    }
+    .thumbnail-media-carousel {
+        width: calc((120px * 3) + (10px * 2));
+        gap: 10px;
+    }
+
+    .service-calendar-widget {
+        padding: 10px;
+        height: auto;
+    }
+
+    .calendar-header {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .calendar-days-of-week span {
+        font-size: 14px;
+        padding: 5px 0;
+    }
+
+    .calendar-date {
+        height: 35px;
+        font-size: 14px;
+    }
+
+
+    .customer-review-card {
+        padding: 10px;
+    }
+
+    .reviewer-full-name {
+        font-size: 16px;
+    }
+
+    .footer {
+        padding: 20px;
+    }
+
+    .footer-title {
+        font-size: 18px;
+    }
+
+    .footer-column ul li,
+    .footer-copy,
+    .language-selector span {
+        font-size: 14px;
+    }
+
+    .social-icons img {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-search-input {
+        font-size: 12px;
+    }
+
+    .header-search-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .header-right-nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+    .header-profile-pic {
+        order: -1;
+    }
+
+    .artisan-profile-layout {
+        padding: 10px;
+    }
+
+    .artisan-bio-header {
+        align-items: center;
+    }
+    .artisan-profile-avatar {
+        width: 70px;
+        height: 70px;
+    }
+
+    .artisan-full-name {
+        font-size: 18px;
+    }
+
+    .artisan-service-price {
+        font-size: 20px;
+    }
+
+    .artisan-service-category,
+    .calendar-section-title,
+    .reviews-section-title {
+        font-size: 20px;
+    }
+
+    .artisan-short-description,
+    .artisan-long-description,
+    .customer-review-text {
+        font-size: 14px;
+    }
+
+    .main-media-viewer {
+        height: 200px;
+    }
+
+    .gallery-thumbnail {
+        width: 100px;
+        height: 80px;
+    }
+    .thumbnail-media-carousel {
+        width: calc((100px * 2) + (10px * 1));
+    }
+
+    .calendar-date {
+        height: 30px;
+        font-size: 12px;
+    }
+
+
+    .footer-column ul li {
+        font-size: 12px;
+    }
+
+    .footer-copy,
+    .language-selector span {
+        font-size: 12px;
+    }
+}
